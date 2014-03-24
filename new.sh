@@ -54,6 +54,7 @@ cp ../../nginx.conf      tmp
 cp ../../nginx.init      tmp
 cp ../../nginx.logrotate tmp
 cp ../../new.sh          tmp
+cp ../../backup.sh       tmp
 sed -i s#db/prod#/var/www/shared/prod# app/config/database.yml
 bundle install
 

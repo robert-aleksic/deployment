@@ -42,6 +42,7 @@ namespace :install do
 #    run 'sudo ntpdate ntp.ubuntu.com'
     run 'sudo apt-get install mc -y'
     run 'sudo apt-get install htop -y'
+    run 'sudo apt-get install zip -y'
     run 'sudo apt-get install imagemagick libmagickwand-dev -y'
     run 'sudo apt-get -y install '+ruby_dep.join(' ')
   end
