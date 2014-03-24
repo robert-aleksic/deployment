@@ -42,6 +42,6 @@ gem 'rmagick'
 gem 'carrierwave'
 
 # Deploy with Capistrano
-gem 'capistrano'
+gem 'capistrano', '~> 2.15'
 
 gem 'thin'
