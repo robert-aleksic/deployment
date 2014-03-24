@@ -6,15 +6,15 @@ set -x verbose # for debuging
 #  variables for app setup
 #
 
-project=n1new				# not ruby reserved word test etc..
+project=ddkmne				# not ruby reserved word test etc..
 website=www.$project.com    # not used yet
 
-vagrantbox=preciseamd64 # assume box is already added with vagrant box add
+vagrantbox=precise64    # assume box is already added with vagrant box add
 myip=192.168.1.102      # for fixing ubuntu 12.04 net accessibility problem
 memorysize=640          # for virtual box
 
-sshport=2226            # free ports not used for other vm
-httpport=4446           # will be redirected on vm from 22/80 retrospectively
+sshport=2228            # free ports not used for other vm
+httpport=4448           # will be redirected on vm from 22/80 retrospectively
 
 github_username=robert-aleksic # username  on github where repository will be created
 

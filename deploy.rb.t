@@ -19,8 +19,8 @@ set :default_environment, {
   'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
   'DEBIAN_FRONTEND' => 'readline'
 }
-ruby_dep = %w(build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev 
-	          libcurl4-openssl-dev curl git-core python-software-properties libsqlite3-dev libmysql++-dev)
+ruby_dep = %w(build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev libcurl4-openssl-dev 
+              curl git-core python-software-properties libsqlite3-dev libmysql++-dev)
 
 namespace :install do
  
