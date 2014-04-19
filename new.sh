@@ -6,7 +6,7 @@ set -x verbose # for debuging
 #  variables for app setup
 #
 
-project=ddkmne				# not ruby reserved word test etc..
+project=rails41				# not ruby reserved word test etc..
 website=www.$project.com    # not used yet
 
 vagrantbox=precise64    # assume box is already added with vagrant box add
@@ -23,29 +23,31 @@ mkdir $project && cd $project
 
 echo "===   Virtual machine"
 vmname=$project'-vm'
-mkdir vm && cd vm
-cp ../../Vagrantfile.t            Vagrantfile
-sed -i s/vagrantbox/$vagrantbox/g Vagrantfile 
-sed -i s/vmname/$vmname/g         Vagrantfile 
-sed -i s/myip/$myip/g             Vagrantfile 
-sed -i s/memorysize/$memorysize/g Vagrantfile
-sed -i s/sshport/$sshport/g       Vagrantfile
-sed -i s/httpport/$httpport/g     Vagrantfile
-vagrant up
-cp ../../sshconfig.t .
-sed -i s/vmname/$vmname/g sshconfig.t
-sed -i s/sshport/$sshport/g sshconfig.t
-cat sshconfig.t >>~/.ssh/config
-rm sshconfig.t
-cd ..
+# mkdir vm && cd vm
+# cp ../../Vagrantfile.t            Vagrantfile
+# sed -i s/vagrantbox/$vagrantbox/g Vagrantfile 
+# sed -i s/vmname/$vmname/g         Vagrantfile 
+# sed -i s/myip/$myip/g             Vagrantfile 
+# sed -i s/memorysize/$memorysize/g Vagrantfile
+# sed -i s/sshport/$sshport/g       Vagrantfile
+# sed -i s/httpport/$httpport/g     Vagrantfile
+# vagrant up
+# cp ../../sshconfig.t .
+# sed -i s/vmname/$vmname/g sshconfig.t
+# sed -i s/sshport/$sshport/g sshconfig.t
+# cat sshconfig.t >>~/.ssh/config
+# rm sshconfig.t
+# cd ..
 
 echo "===   Create rails app"
 echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
 rails new rails_app -T --skip-bundle >/dev/null
 cd rails_app
+echo secrets.yml >> .gitignore
 cp ../../Gemfile   .
 cp ../../Capfile   .
 cp ../../deploy.rb.t tmp
+cp ../../backup.sh tmp
 sed -i s/testapp/$project/g                 tmp/deploy.rb.t
 sed -i s/vmname/$vmname/g                   tmp/deploy.rb.t
 sed -i s/github_username/$github_username/g tmp/deploy.rb.t

@@ -83,6 +83,9 @@ namespace :install do
     run 'mkdir /var/www/shared/uploads'
     run 'mkdir /var/www/shared/backups'
 
+    # for backup
+    system "scp -r tmp/backup.sh #{srv}:/var/www/shared"
+
   end
 
   task :all do
@@ -110,7 +113,6 @@ namespace :nginx do
     
 end
 
-
 namespace :deploy do
   
   task :start do ; end
@@ -125,6 +127,11 @@ namespace :deploy do
   # task :copy_in_database_yml do
   #   run "cp #{shared_path}/config/database.yml #{latest_release}/config/"
   # end
+
+  task :copy_secrets_yaml do
+    #upload "config/application.yml", "#{latest_release}/config/application.yml"
+    system "scp config/secrets.yml #{srv}:#{latest_release}/config/secrets.yml"
+  end
 
   task :link_carierwave_uploads do
     run "rm -rf #{latest_release}/public/uploads"
@@ -157,10 +164,21 @@ namespace :data do
   end
 end
 
+namespace :site do
+  task :refresh do
+    system "curl https://www.n1angel.com/home >/dev/null"
+  end
+end
+
 after "deploy:cold", "nginx:start"
 after "deploy:setup", "deploy:cold"
-after "deploy", "deploy:migrate"
-after "deploy", "deploy:link_carierwave_uploads"
-after "deploy", "deploy:link_backups"
+
+after "deploy", "site:refresh"
+
+before "deploy:restart", "deploy:migrate"
+before "deploy:assets:precompile", "deploy:copy_secrets_yaml"
+before "deploy:assets:precompile", "deploy:link_carierwave_uploads"
+before "deploy:assets:precompile", "deploy:link_backups"
+#before "deploy:assets:precompile", "deploy:remove_deploy"
 
 # before "deploy:assets:precompile", "deploy:copy_in_database_yml"

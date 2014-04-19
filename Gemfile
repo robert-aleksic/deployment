@@ -1,47 +1,53 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.4'
-
-gem 'sqlite3'
+gem 'rails', '4.1.0'
 gem 'unicode_utils'
 
-# Gems used only for assets and not required
-# in production environments by default.
-gem 'sass-rails', '~> 4.0.2'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'sqlite3'
 
-gem 'therubyracer', :platforms => :ruby
+# html
+gem 'haml'
+gem 'haml-rails'
+gem 'haml-contrib'
+
+# css
+gem 'less-rails' 
+gem 'sass-rails', '~> 4.0.3'
+gem 'twitter-bootstrap-rails'
+
+# js
+gem 'therubyracer', platforms: :ruby
+gem 'coffee-rails', '~> 4.0.0'
+gem 'jquery-rails'
+gem 'jbuilder', '~> 1.2'
+
+gem 'uglifier', '>= 1.3.0'
+
+gem 'turbolinks'
+
+group :doc do
+  gem 'sdoc', require: false
+end
 
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
+  
   gem 'erb2haml'
 end
 
-# To use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-gem 'turbolinks'
 
-gem 'haml'
-gem 'haml-rails'
+# gem 'activeadmin', github: 'gregbell/active_admin'
 
-gem 'jquery-rails'
+# gem 'simple_form'
+# gem 'RedCloth'
+# gem 'rmagick'
+# gem 'carrierwave'
 
-gem 'less-rails' 
-gem 'twitter-bootstrap-rails'
-
-gem 'simple_form'
-
-gem 'RedCloth'
-gem 'haml-contrib'
-
-gem 'rmagick'
-gem 'carrierwave'
-
-# Deploy with Capistrano
+# capistrano
 gem 'capistrano', '~> 2.15'
 
 gem 'thin'
