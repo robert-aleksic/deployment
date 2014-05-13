@@ -39,8 +39,8 @@ end
 
 gem 'bcrypt', '~> 3.1.7'
 
-
-# gem 'activeadmin', github: 'gregbell/active_admin'
+#gem 'activeadmin', github: 'gregbell/active_admin'
+#gem 'formtastic' , github: 'justinfrench/formtastic'
 
 # gem 'simple_form'
 # gem 'RedCloth'

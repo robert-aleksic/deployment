@@ -6,8 +6,8 @@ set -x verbose # for debuging
 #  variables for app setup
 #
 
-project=rails41				# not ruby reserved word test etc..
-website=www.$project.com    # not used yet
+project=ddkmne            # not ruby reserved word test etc..
+website=www.$project.com  # not used yet
 
 vagrantbox=precise64    # assume box is already added with vagrant box add
 myip=192.168.1.102      # for fixing ubuntu 12.04 net accessibility problem
@@ -57,7 +57,7 @@ cp ../../nginx.init      tmp
 cp ../../nginx.logrotate tmp
 cp ../../new.sh          tmp
 cp ../../backup.sh       tmp
-sed -i s#db/prod#/var/www/shared/prod# app/config/database.yml
+sed -i s#db/prod#/var/www/shared/prod# config/database.yml
 bundle install
 
 echo "===   Initial commit to git"

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'bundler/capistrano'
 
 srv = 'vmname'
@@ -19,8 +21,10 @@ set :default_environment, {
   'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
   'DEBIAN_FRONTEND' => 'readline'
 }
-ruby_dep = %w(build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev libcurl4-openssl-dev 
-              curl git-core python-software-properties libsqlite3-dev libmysql++-dev)
+ruby_dep = #%w(build-essential zlib1g-dev libssl-dev libreadline6-dev libyaml-dev libcurl4-openssl-dev 
+           #   curl git-core python-software-properties libsqlite3-dev libmysql++-dev)
+           %w(build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev
+              git-core curl zlib1g-dev )
 
 namespace :install do
  
@@ -51,7 +55,7 @@ namespace :install do
     run 'echo "gem: --no-ri --no-rdoc" >> ~/.gemrc'
     run 'mkdir ~/src && cd ~/src && wget -q -nc http://ftp.ruby-lang.org/pub/ruby/2.1/ruby-2.1.1.tar.gz'
     run 'cd ~/src && tar -zxf ruby-2.1.1.tar.gz'
-    run 'cd ~/src/ruby-2.1.1 && ./configure && make && sudo make install'
+    run 'cd ~/src/ruby-2.1.1 && ./configure --with-readline-dir=/usr/lib/x86_64-linux-gnu/libreadline.so && make && sudo make install'
     run 'cd ~ && rm -rf src'
     run 'sudo gem install bundler'
   end
@@ -84,7 +88,7 @@ namespace :install do
     run 'mkdir /var/www/shared/backups'
 
     # for backup
-    system "scp -r tmp/backup.sh #{srv}:/var/www/shared"
+    system "scp -r tmp/backup.sh #{srv}:/var/www/shared/backup.sh"
 
   end
 
@@ -112,6 +116,7 @@ namespace :nginx do
   end
     
 end
+
 
 namespace :deploy do
   
@@ -179,6 +184,9 @@ before "deploy:restart", "deploy:migrate"
 before "deploy:assets:precompile", "deploy:copy_secrets_yaml"
 before "deploy:assets:precompile", "deploy:link_carierwave_uploads"
 before "deploy:assets:precompile", "deploy:link_backups"
-#before "deploy:assets:precompile", "deploy:remove_deploy"
+# before "deploy:assets:precompile", "deploy:remove_deploy"
+
+set :keep_releases, 1
+after "deploy:update", "deploy:cleanup" 
 
 # before "deploy:assets:precompile", "deploy:copy_in_database_yml"
