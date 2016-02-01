@@ -53,9 +53,12 @@ namespace :install do
  
   task :ruby do
     run 'echo "gem: --no-ri --no-rdoc" >> ~/.gemrc'
-    run 'mkdir ~/src && cd ~/src && wget -q -nc http://ftp.ruby-lang.org/pub/ruby/2.1/ruby-2.1.1.tar.gz'
-    run 'cd ~/src && tar -zxf ruby-2.1.1.tar.gz'
-    run 'cd ~/src/ruby-2.1.1 && ./configure --with-readline-dir=/usr/lib/x86_64-linux-gnu/libreadline.so && make && sudo make install'
+    #run 'mkdir ~/src && cd ~/src && wget -q -nc http://ftp.ruby-lang.org/pub/ruby/2.1/ruby-2.1.1.tar.gz'
+    #run 'cd ~/src && tar -zxf ruby-2.1.1.tar.gz'
+    #run 'cd ~/src/ruby-2.1.1 && ./configure --with-readline-dir=/usr/lib/x86_64-linux-gnu/libreadline.so && make && sudo make install'
+    run 'mkdir ~/src && cd ~/src && wget -q -nc http://ftp.ruby-lang.org/pub/ruby/2.2/ruby-2.2.3.tar.gz'
+    run 'cd ~/src && tar -zxf ruby-2.2.3.tar.gz'
+    run 'cd ~/src/ruby-2.2.3 && ./configure --with-readline-dir=/usr/lib/x86_64-linux-gnu/libreadline.so && make && sudo make install'
     run 'cd ~ && rm -rf src'
     run 'sudo gem install bundler'
   end
